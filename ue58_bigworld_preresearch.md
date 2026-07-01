@@ -1,4 +1,4 @@
-# UE 5.8.0 主机级开放世界预研：DCC 到 Runtime 性能闭环
+# ue58.0 主机级开放世界预研：dcc 到 runtime 性能闭环
 
 > 本文是研究记录，不是工程配置文档。文中不包含脚本或可直接执行的配置值。
 > 所有 Windows 路径均使用完整绝对路径。
@@ -9,20 +9,20 @@
 ## 1. 背景与目标
 
 ### 1.1 项目背景
-- 本地 UE 源码根目录为 `E:\UEWS\5.8.0`，此前已基于该本地源码完成 UE 5.8.0 首轮预研。
+- 本地 ue 源码根目录为 `E:\UEWS\5.8.0`，此前已基于该本地源码完成 ue58.0 首轮预研。
 - 目标产品形态：主机级 3A 开放世界游戏。
-- 关注面：大世界地形、渲染、性能、Nanite 资产制作、Houdini DCC 管线、UE Editor 场景编辑、Runtime 运行、性能监控闭环。
+- 关注面：大世界地形、渲染、性能、Nanite 资产制作、Houdini dcc 管线、ue editor 场景编辑、runtime 运行、性能监控闭环。
 
 ### 1.2 目标与约束
 - **帧率预算区间**：60 ~ 144 FPS（对该区间的拆解见第 5 节核心判断，不能笼统当成同一档画质目标）。
 - **地形路线**：真实高程图 / DEM 转 mesh，通过 Houdini 管线导入 UE。
-- **待决问题**：Nanite 资产应 hero asset 优先，还是环境资产批量生产优先，尚无定论。
+- **待决问题**：nanite 资产应 hero asset 优先，还是环境资产批量生产优先，尚无定论。
 - **性能验收核心**：单机场景、穿越流送、战斗压力三条主线；城市密度暂不作为首轮核心。
 
 ### 1.3 本轮分析边界
-- 本轮**不考虑** UE 5.8 MCP Toolsets。
+- 本轮**不考虑** ue58 mcp toolsets。
 - 分析框架固定为四段管线拆解：
-  DCC 资产制作管线 → UE Editor 场景编辑管线 → Runtime 运行管线 → 性能监控管线。
+  dcc 资产制作管线 → ue editor 场景编辑管线 → runtime 运行管线 → 性能监控管线。
 
 ---
 
@@ -32,9 +32,9 @@
 
 | 领域 | 锚点路径（绝对路径） | 关注符号 / 说明 |
 | --- | --- | --- |
-| 版本确认 | `E:\UEWS\5.8.0\Engine\Build\Build.version` | 确认本地源码为 UE 5.8.0 |
-| Houdini（缺失事实） | `E:\UEWS\5.8.0\Engine\Plugins` | 未发现 SideFX Houdini Engine 插件；Houdini 属外部 DCC/插件输入 |
-| DCC / 导入 | `E:\UEWS\5.8.0\Engine\Plugins\Interchange\Runtime\Source\Pipelines\Public\InterchangeGenericMeshPipeline.h` | `UInterchangeGenericMeshPipeline`、`bImportStaticMeshes`、`CreateStaticMeshFactoryNode` |
+| 版本确认 | `E:\UEWS\5.8.0\Engine\Build\Build.version` | 确认本地源码为 ue58.0 |
+| Houdini（缺失事实） | `E:\UEWS\5.8.0\Engine\Plugins` | 未发现 SideFX Houdini Engine 插件；Houdini 属外部 dcc/插件输入 |
+| dcc / 导入 | `E:\UEWS\5.8.0\Engine\Plugins\Interchange\Runtime\Source\Pipelines\Public\InterchangeGenericMeshPipeline.h` | `UInterchangeGenericMeshPipeline`、`bImportStaticMeshes`、`CreateStaticMeshFactoryNode` |
 | Nanite 构建 | `E:\UEWS\5.8.0\Engine\Source\Developer\NaniteBuilder\Public\NaniteBuilder.h` | `IBuilderModule`、`BuildAssemblyPart`、`Build`、`BuildMaterialIndices` |
 | Nanite 运行 / 流送 | `E:\UEWS\5.8.0\Engine\Source\Runtime\Engine\Private\Rendering\NaniteStreamingManager.cpp`；`E:\UEWS\5.8.0\Engine\Source\Runtime\Engine\Public\Rendering\NaniteStreamingManager.h` | Nanite streaming pool 行为 |
 | World Partition | `E:\UEWS\5.8.0\Engine\Source\Runtime\Engine\Public\WorldPartition\RuntimeHashSet\WorldPartitionRuntimeHashSet.h`；`E:\UEWS\5.8.0\Engine\Source\Runtime\Engine\Public\WorldPartition\RuntimeHashSet\RuntimePartitionLHGrid.h`；`E:\UEWS\5.8.0\Engine\Source\Runtime\Engine\Public\WorldPartition\WorldPartitionStreamingSource.h`；`E:\UEWS\5.8.0\Engine\Source\Runtime\Engine\Public\WorldPartition\WorldPartitionStreamingPolicy.h` | 运行时分区、流送源与流送策略 |
@@ -52,18 +52,18 @@
 
 ## 3. 管线总览图
 
-四段管线闭环（DCC → Editor → Runtime → 性能监控 → 反馈回 DCC）：
+四段管线闭环（dcc → editor → runtime → 性能监控 → 反馈回 dcc）：
 
 ```mermaid
 flowchart LR
-    subgraph DCC["1. DCC 资产制作管线 (外部)"]
+    subgraph DCC["1. dcc 资产制作管线 (外部)"]
         DEM["真实高程图 / DEM"]
         HOU["Houdini (外部 DCC 生产者)"]
         EXP["导出: USD / FBX / Mesh"]
         DEM --> HOU --> EXP
     end
 
-    subgraph EDITOR["2. UE Editor 场景编辑管线"]
+    subgraph EDITOR["2. ue editor 场景编辑管线"]
         IC["Interchange 导入\nInterchangeGenericMeshPipeline"]
         NB["NaniteBuilder 构建\nIBuilderModule / Build"]
         LS["Landscape + Nanite 表达 + RVT"]
@@ -77,7 +77,7 @@ flowchart LR
         WP --> HLOD
     end
 
-    subgraph RUNTIME["3. Runtime 运行管线"]
+    subgraph RUNTIME["3. runtime 运行管线"]
         STREAM["WorldPartition 流送\nStreamingSource / StreamingPolicy"]
         NSM["Nanite Streaming Manager\nNaniteStreamingManager"]
         PSO["PSO Precache\nPSOPrecache / PipelineStateCache"]
@@ -106,7 +106,7 @@ flowchart LR
 ASCII 备用视图（渲染环境不支持 Mermaid 时使用）：
 
 ```
-[真实DEM]->[Houdini 外部DCC]->[USD/FBX/Mesh]
+[真实DEM]->[Houdini 外部dcc]->[USD/FBX/Mesh]
         |
         v
 [Interchange 导入]->[NaniteBuilder 构建 / Landscape+RVT]->[World Partition]->[PCG / HLOD]
@@ -117,7 +117,7 @@ ASCII 备用视图（渲染环境不支持 Mermaid 时使用）：
         v
 [GPU Trace / CSV Profiler / Trace Auxiliary]
         |
-        +-----------------> (验收反馈, 修正资产与自动化标准) -----------------> [回到 DCC]
+        +-----------------> (验收反馈, 修正资产与自动化标准) -----------------> [回到 dcc]
 ```
 
 ---
@@ -135,9 +135,9 @@ ASCII 备用视图（渲染环境不支持 Mermaid 时使用）：
 - **补充负空间**：以 Nanite StaticMesh 承担悬崖、洞穴、overhang、大型岩体，以及局部无法由高度场表达的负空间。
 - **纯 Nanite Mesh 地形的准入门槛**：只有在碰撞、导航、流送、World Partition 组织、HLOD、VRAM / Nanite streaming pool 已通过垂直切片验证后，才允许进入生产。
 
-### 4.3 Houdini 关系（已形成结论：外部 DCC 生产者）
-- 本地 `E:\UEWS\5.8.0\Engine\Plugins` 未内置 SideFX Houdini Engine，因此 **Houdini 应被视为外部 DCC 生产者**。
-- UE 侧重点在于承接与验证链路：Interchange / USD / FBX / StaticMesh / NaniteBuilder / DDC / Cook / World Partition / HLOD。
+### 4.3 Houdini 关系（已形成结论：外部 dcc 生产者）
+- 本地 `E:\UEWS\5.8.0\Engine\Plugins` 未内置 SideFX Houdini Engine，因此 **Houdini 应被视为外部 dcc 生产者**。
+- ue 侧重点在于承接与验证链路：Interchange / USD / FBX / StaticMesh / NaniteBuilder / DDC / Cook / World Partition / HLOD。
 - 不应假定官方源码内置完整 Houdini Engine；集成方式属外部插件依赖。
 
 ### 4.4 三个主要矛盾（贯穿全项目的结构性张力）
@@ -219,7 +219,7 @@ ASCII 备用视图（渲染环境不支持 Mermaid 时使用）：
 ## 10. 局限性与潜在风险提示
 
 - **未实测即结论的风险**：第 9 节所有推理均无实测支撑，任何性能预算数字在垂直切片跑通前都不可写入正式规格。
-- **Houdini 外部依赖风险**：Houdini Engine 属外部插件 / DCC，版本兼容性、导入语义（尤其法线 / UV / 材质槽 / 碰撞代理）需单独验证。
+- **Houdini 外部依赖风险**：Houdini Engine 属外部插件 / dcc，版本兼容性、导入语义（尤其法线 / UV / 材质槽 / 碰撞代理）需单独验证。
 - **Experimental 路线风险**：`VirtualHeightfieldMesh`、`NaniteDisplacedMesh` 处于 `Experimental`，接口与行为可能变动，不宜作为默认生产基础。
 - **双轨数据一致性风险**：地形可视表达与碰撞 / 导航数据分离，存在“看得到走不通 / 走得通看不到”的一致性缺陷风险。
 - **模式契约漂移风险**：若质量模式与高刷模式的特性开关未显式冻结，容易在迭代中互相污染，导致两种模式都不达标。
