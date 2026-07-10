@@ -1,0 +1,6 @@
+﻿"Kind","Name","Extension","SizeBytes","SizeMiB","LastWriteTime","FullPath","InUnrealEditorScope"
+"ModulePCH","PCH.Core.h.pch",".pch","406585344","387.75","2026-07-04 13:12:50","D:\UE\5.7.4r\Engine\Intermediate\Build\Win64\x64\UnrealEditor\Development\Core\PCH.Core.h.pch","True"
+"ModulePCH","PCH.CoreUObject.h.pch",".pch","571473920","545","2026-07-04 13:12:53","D:\UE\5.7.4r\Engine\Intermediate\Build\Win64\x64\UnrealEditor\Development\CoreUObject\PCH.CoreUObject.h.pch","True"
+"ModulePCH","PCH.Engine.h.pch",".pch","2026635072","1932.75","2026-07-04 13:13:23","D:\UE\5.7.4r\Engine\Intermediate\Build\Win64\x64\UnrealEditor\Development\Engine\PCH.Engine.h.pch","True"
+"ModulePCH","PCH.UnrealEd.h.pch",".pch","2105278344","2007.75","2026-07-04 13:13:25","D:\UE\5.7.4r\Engine\Intermediate\Build\Win64\x64\UnrealEditor\Development\UnrealEd\PCH.UnrealEd.h.pch","True"
+"ModulePCH","PCH.ResonanceAudio.h.pch",".pch","243335168","232.06","2026-07-04 13:12:47","D:\UE\5.7.4r\Engine\Plugins\Runtime\ResonanceAudio\Intermediate\Build\Win64\x64\UnrealEditor\Development\ResonanceAudio\PCH.ResonanceAudio.h.pch","False"

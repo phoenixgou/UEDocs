@@ -1,0 +1,11 @@
+﻿{
+    "Attempt":  1,
+    "Root":  "D:\\UE\\5.7.4r",
+    "BuildBat":  "D:\\UE\\5.7.4r\\BuildEditor.bat",
+    "Start":  "2026-07-04T14:33:40.1683180+08:00",
+    "End":  "2026-07-04T14:59:41.4942621+08:00",
+    "WallSeconds":  1561.326,
+    "ExitCode":  null,
+    "Stdout":  "D:\\UE\\Docs\\Build\\5.7.4r\\Attempts\\20260704-143236-BuildEditor-SharedPCHEnabled\\Attempt1_stdout.log",
+    "Stderr":  "D:\\UE\\Docs\\Build\\5.7.4r\\Attempts\\20260704-143236-BuildEditor-SharedPCHEnabled\\Attempt1_stderr.log"
+}

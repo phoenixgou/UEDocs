@@ -1,0 +1,16 @@
+﻿Build39 DB: C:\ProgramData\Incredibuild\BuildData\BuildDB_39.db
+Build40 DB: C:\ProgramData\Incredibuild\BuildData\BuildDB_40.db
+Comparison mode: successful ended tasks only; duplicate BarCaption paired by duration-desc PairRank.
+Paired task rows: 3520
+Distinct task names paired: 3450
+Build40 slower rows: 1698
+Build40 faster/equal rows: 1822
+Build39 remote/local among paired rows: remote=2529 local=991
+Build40 remote/local among paired rows: remote=1343 local=2177
+Unmatched successful rows: Build39Only=2717 Build40Only=12
+DeltaSec P50/P90/P95/P99/Max: -0.014/265.265/343.368/455.969/953.525
+Full CSV: D:\UE\5.4.4r\Engine\Saved\Logs\Codex_Build39_vs_Build40_SameTask_SuccessPairs_20260704_221424.csv
+Unmatched CSV: D:\UE\5.4.4r\Engine\Saved\Logs\Codex_Build39_vs_Build40_Unmatched_SuccessTasks_20260704_221424.csv
+Top Markdown: D:\UE\5.4.4r\Engine\Saved\Logs\Codex_Build39_vs_Build40_TopDelta_20260704_221424.md
+SVG chart: D:\UE\5.4.4r\Engine\Saved\Logs\Codex_Build39_vs_Build40_TopDelta_20260704_221424.svg
+HTML report: D:\UE\5.4.4r\Engine\Saved\Logs\Codex_Build39_vs_Build40_Report_20260704_221424.html

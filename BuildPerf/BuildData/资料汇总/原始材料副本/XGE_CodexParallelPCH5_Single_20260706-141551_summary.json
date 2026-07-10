@@ -1,0 +1,102 @@
+﻿{
+    "Stamp":  "20260706-141551",
+    "Xml":  "D:\\UE\\5.8.0r\\Engine\\Intermediate\\Build\\CodexParallelPCH.ActorPickerMode5.xge.xml",
+    "ExitCode":  0,
+    "BuildGuid":  "{5B37934A-8747-4393-8214-EFF51317920D}",
+    "BuildId":  61,
+    "BuildTimeMs":  18228,
+    "ReturnCode":  0,
+    "PreExistingIBProcesses":  {
+                                   "ProcessId":  58664,
+                                   "Name":  "BuildHelper.exe",
+                                   "CommandLine":  "\"C:\\Program Files (x86)\\Incredibuild\\BuildHelper.exe\" /port=31105 /proto=tcp /id=\"GIH-D-33028\\0\" /cpu=0 /buildhandle=147 /buildmachineid=423 /vedir=\"C:\\Program Files (x86)\\Incredibuild\" /veid=\"{AE09232E-F952-4EE9-AE21-2EE09B2454E6}\" /workingfor=Gih-d-30904;",
+                                   "CreationDate":  "\/Date(1783318445886)\/"
+                               },
+    "BaselineSeconds":  10.034,
+    "BaselineSentBytes":  6191863,
+    "BaselineReceivedBytes":  862950,
+    "BaselineTotalBytes":  7054813,
+    "RunSeconds":  20.565,
+    "RunSentBytes":  806958453,
+    "RunReceivedBytes":  11228679,
+    "RunTotalBytes":  818187132,
+    "RunSentMiB":  769.576,
+    "RunReceivedMiB":  10.709,
+    "RunTotalMiB":  780.284,
+    "BaselineEstimatedBytes":  14458659,
+    "AdjustedTotalBytes":  803728473,
+    "AdjustedTotalMiB":  766.495,
+    "RemoteAgentTaskCount":  4,
+    "AgentLines":  [
+                       "Module.ActorPickerMode.cpp (Agent \u0027Gih-d-x12994 (Core #7)\u0027, 0:16.11 at +0:01)",
+                       "Module.ActorPickerMode.cpp (Agent \u0027Gih-d-x12994 (Core #6)\u0027, 0:16.12 at +0:01)",
+                       "Module.ActorPickerMode.cpp (Agent \u0027Gih-d-x12994 (Core #2)\u0027, 0:12.68 at +0:05)",
+                       "Module.ActorPickerMode.cpp (Agent \u0027Gih-d-x12994 (Core #8)\u0027, 0:16.28 at +0:01)"
+                   ],
+    "Tasks":  [
+                  {
+                      "ID":  5,
+                      "BarCaption":  "Module.ActorPickerMode.CodexPCH1.cpp",
+                      "MachineName":  "GIH-D-33028",
+                      "SlotIsLocal":  0,
+                      "Start":  1054,
+                      "End":  4802,
+                      "Duration":  3748,
+                      "ExitCode":  0,
+                      "BuildCacheStatus":  20,
+                      "PeakMemory":  2551
+                  },
+                  {
+                      "ID":  6,
+                      "BarCaption":  "Module.ActorPickerMode.CodexPCH2.cpp",
+                      "MachineName":  "GIH-D-X12994",
+                      "SlotIsLocal":  0,
+                      "Start":  1826,
+                      "End":  18110,
+                      "Duration":  16284,
+                      "ExitCode":  0,
+                      "BuildCacheStatus":  20,
+                      "PeakMemory":  2536
+                  },
+                  {
+                      "ID":  7,
+                      "BarCaption":  "Module.ActorPickerMode.CodexPCH3.cpp",
+                      "MachineName":  "GIH-D-X12994",
+                      "SlotIsLocal":  0,
+                      "Start":  1826,
+                      "End":  17941,
+                      "Duration":  16115,
+                      "ExitCode":  0,
+                      "BuildCacheStatus":  20,
+                      "PeakMemory":  2536
+                  },
+                  {
+                      "ID":  8,
+                      "BarCaption":  "Module.ActorPickerMode.CodexPCH4.cpp",
+                      "MachineName":  "GIH-D-X12994",
+                      "SlotIsLocal":  0,
+                      "Start":  1837,
+                      "End":  17967,
+                      "Duration":  16130,
+                      "ExitCode":  0,
+                      "BuildCacheStatus":  20,
+                      "PeakMemory":  2536
+                  },
+                  {
+                      "ID":  9,
+                      "BarCaption":  "Module.ActorPickerMode.CodexPCH5.cpp",
+                      "MachineName":  "GIH-D-X12994",
+                      "SlotIsLocal":  0,
+                      "Start":  5296,
+                      "End":  17985,
+                      "Duration":  12689,
+                      "ExitCode":  0,
+                      "BuildCacheStatus":  20,
+                      "PeakMemory":  2536
+                  }
+              ],
+    "Stats":  null,
+    "LogPath":  "D:\\UE\\5.8.0r\\Engine\\Programs\\UnrealBuildTool\\XGE.CodexParallelPCH5.Single.20260706-141551.log",
+    "StdoutPath":  "D:\\UE\\5.8.0r\\Engine\\Programs\\UnrealBuildTool\\XGE.CodexParallelPCH5.Single.20260706-141551.stdout.txt",
+    "SamplesCsv":  "D:\\UE\\5.8.0r\\Engine\\Programs\\UnrealBuildTool\\XGE.CodexParallelPCH5.Single.20260706-141551.samples.csv"
+}

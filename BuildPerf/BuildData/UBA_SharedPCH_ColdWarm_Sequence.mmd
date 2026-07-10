@@ -1,0 +1,37 @@
+sequenceDiagram
+    autonumber
+    participant Host as Host UbaCli
+    participant Agent as Agent UbaAgent
+    participant CAS as Agent CAS Store
+    participant Map as Agent PCH MemoryMap
+    participant CL as Remote cl.exe
+
+    Note over Host,CL: Target PCH_HINT CAS raw 2574778360B comp 337029231B compressed CAS transfer
+
+    rect rgb(35, 50, 70)
+    Note over Host,CL: COLD port 31390 remote wall 11.8s
+    Host->>Agent: Step 1 SendCas cold 241 files 2.4s raw 2.6gb comp 349.8mb
+    Agent->>CAS: Step 2 ReceiveCas cold aggregate 14.1s not additive
+    Note over Agent,CAS: Step 3 Large PCH RecvCas cold 3.5s comp 337.0mb raw 2.6gb
+    CL->>Agent: Step 4 request pch cold trigger no timing
+    Note over CL,Map: Cold mapping decision lt1ms alloc 10ms fill 540ms total 556ms mapview 17ms
+    Agent->>Agent: Step 5 PCH memory map decision cold lt1ms alignment 65536
+    Agent->>Map: Step 6 AllocAndMapView cold 10ms contentSize 2574778360
+    Map->>Map: Step 7 CAS to full PCH cold fill 540ms total 556ms
+    Map-->>CL: Step 8 MapView cold 17ms MapView3 lt1ms aggregate
+    CL-->>Host: Step 9 Remote run cold 11.8s
+    end
+
+    rect rgb(35, 70, 45)
+    Note over Host,CL: WARM port 31391 remote wall 7.6s
+    Host->>Agent: Step 1 SendCas warm no large transfer logged
+    Agent->>CAS: Step 2 ReceiveCas warm no large transfer logged
+    Note over Agent,CAS: Step 3 Large PCH RecvCas warm CAS hit no large PCH CAS transfer logged
+    CL->>Agent: Step 4 request pch warm trigger no timing
+    Note over CL,Map: Warm mapping decision lt1ms alloc 9ms fill 314ms total 323ms mapview 18ms
+    Agent->>Agent: Step 5 PCH memory map decision warm lt1ms alignment 65536
+    Agent->>Map: Step 6 AllocAndMapView warm 9ms contentSize 2574778360
+    Map->>Map: Step 7 CAS to full PCH warm fill 314ms total 323ms
+    Map-->>CL: Step 8 MapView warm 18ms MapView3 lt1ms aggregate
+    CL-->>Host: Step 9 Remote run warm 7.6s
+    end

@@ -1,0 +1,8 @@
+﻿"Metric","Count","SizeMiB"
+"Scanner","rg -uuu --files",""
+"All .pch files","0","0"
+"All SharedPCH* files","484","0.08"
+"SharedPCH*.pch files","0","0"
+"UnrealEditor scope .pch files","0","0"
+"UnrealEditor scope SharedPCH* files","18","0"
+"UnrealEditor scope SharedPCH*.pch files","0","0"

@@ -1,0 +1,7 @@
+Start=2026-07-04T14:28:13.5551011+08:00
+Command=D:\UE\5.7.4r\Engine\Build\BatchFiles\Build.bat UnrealEditor Win64 Development -Clean -WaitMutex
+Stdout=D:\UE\Docs\Build\5.7.4r\Attempts\20260704-142751-BuildCleanPCHCheck\BuildBat_Clean_UnrealEditor_stdout.log
+Stderr=D:\UE\Docs\Build\5.7.4r\Attempts\20260704-142751-BuildCleanPCHCheck\BuildBat_Clean_UnrealEditor_stderr.log
+End=2026-07-04T14:28:23.6377992+08:00
+WallSeconds=10.083
+ExitCode=

@@ -1,0 +1,7 @@
+﻿"Metric","Count","SizeMiB"
+"All .pch files","12","14049.93"
+"All SharedPCH* files","539","9195.42"
+"SharedPCH*.pch files","7","8944.62"
+"UnrealEditor scope .pch files","11","13817.87"
+"UnrealEditor scope SharedPCH* files","73","9195.35"
+"UnrealEditor scope SharedPCH*.pch files","7","8944.62"
