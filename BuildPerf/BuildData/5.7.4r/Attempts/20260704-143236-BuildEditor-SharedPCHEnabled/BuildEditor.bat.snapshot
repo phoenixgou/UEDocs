@@ -1,0 +1,35 @@
+@echo off
+setlocal
+
+set "BuildEditor_Root=%~dp0"
+set "BuildEditor_BuildScript=%BuildEditor_Root%Engine\Build\BatchFiles\Build.bat"
+set "BuildEditor_TargetFile=%BuildEditor_Root%Engine\Source\UnrealEditor.Target.cs"
+set "BuildEditor_Target=UnrealEditor"
+set "BuildEditor_Platform=Win64"
+set "BuildEditor_Config=Development"
+
+set "TargetName="
+
+echo [BuildEditor] Root: "%BuildEditor_Root%"
+echo [BuildEditor] Target: %BuildEditor_Target% %BuildEditor_Platform% %BuildEditor_Config%
+
+if not exist "%BuildEditor_BuildScript%" (
+	echo [BuildEditor] ERROR: Missing build script: "%BuildEditor_BuildScript%"
+	exit /b 1
+)
+
+if not exist "%BuildEditor_TargetFile%" (
+	echo [BuildEditor] ERROR: Missing editor target: "%BuildEditor_TargetFile%"
+	exit /b 1
+)
+
+call "%BuildEditor_BuildScript%" %BuildEditor_Target% %BuildEditor_Platform% %BuildEditor_Config% -WaitMutex %*
+set "ExitCode=%ERRORLEVEL%"
+
+if not "%ExitCode%"=="0" (
+	echo [BuildEditor] FAILED: build exited with code %ExitCode%.
+	exit /b %ExitCode%
+)
+
+echo [BuildEditor] DONE: build succeeded.
+exit /b 0

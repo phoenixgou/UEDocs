@@ -1,0 +1,19 @@
+﻿{
+    "Attempt":  1,
+    "Root":  "D:\\UE\\5.7.4r",
+    "BuildBat":  "D:\\UE\\5.7.4r\\BuildEditor.bat",
+    "Start":  "2026-07-04T14:33:40.1683180+08:00",
+    "End":  "2026-07-04T14:59:41.4942621+08:00",
+    "WallSeconds":  1561.326,
+    "UBTTotalSeconds":  "1530.99",
+    "XGETotalSeconds":  "1307.58",
+    "XGEActions":  "7783",
+    "ProcessLimit":  "24",
+    "Result":  "Succeeded",
+    "RebuildAll":  "1 succeeded, 0 failed, 0 skipped",
+    "WarningCount":  "22",
+    "DisablingHelperOccurrences":  "22",
+    "SharedPCHHeaderCandidates":  "5",
+    "StartProcessExitCodeCaptured":  null,
+    "ExitEvidence":  "Codex exec wrapper returned 0; stdout contains Result: Succeeded and [BuildEditor] DONE: build succeeded."
+}

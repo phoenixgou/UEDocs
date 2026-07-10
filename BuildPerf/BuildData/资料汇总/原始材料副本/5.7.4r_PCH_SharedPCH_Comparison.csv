@@ -1,0 +1,7 @@
+﻿"Metric","BeforeCount","AfterCount","DeltaCount","BeforeSizeMiB","AfterSizeMiB","DeltaSizeMiB"
+"All .pch files","0","12","12","0","14049.93","14049.93"
+"All SharedPCH* files","484","539","55","0.08","9195.42","9195.34"
+"SharedPCH*.pch files","0","7","7","0","8944.62","8944.62"
+"UnrealEditor scope .pch files","0","11","11","0","13817.87","13817.87"
+"UnrealEditor scope SharedPCH* files","18","73","55","0","9195.35","9195.35"
+"UnrealEditor scope SharedPCH*.pch files","0","7","7","0","8944.62","8944.62"
